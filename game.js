@@ -1,4 +1,5 @@
 var stage, player, crosshair;
+var bullet, bulletGraph;
 
 var KEYCODE_W = 87;
 var KEYCODE_A = 65;
@@ -15,12 +16,18 @@ function init() {
     player.regX = 32;
     player.regY = 32;
 
+    bulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(5,0);
+    bullet = new createjs.Shape(bulletGraph);
+    bullet.speed = [0,0];
+    bullet.active = true;
+
     crosshair = new createjs.Bitmap("crosshair.png");
     crosshair.regX = 25;
     crosshair.regY = 25;
 
     stage.addChild(player);
     stage.addChild(crosshair);
+    stage.addChild(bullet);
 
     createjs.Ticker.addEventListener("tick", handleTick);
     createjs.Ticker.setFPS(60);
@@ -33,8 +40,11 @@ function init() {
 }
 function handleTick(event) {
     // move player
-    player.x += event.delta/1000*player.speed[0]*10;
-    player.y += event.delta/1000*player.speed[1]*10;
+    player.x += event.delta/1000*player.speed[0]*500;
+    player.y += event.delta/1000*player.speed[1]*500;
+
+    bullet.x += event.delta/1000*bullet.speed[0]*500;
+    bullet.y += event.delta/1000*bullet.speed[1]*500;
 
     player.speed[0] /= 1.112;
     player.speed[1] /= 1.112;
@@ -57,8 +67,16 @@ function handleMouseDown(event) {
     var dirY = mToPY / Math.abs(l);
 
     console.log(dirX, dirY);
-    player.speed[0] += -dirX*50;
-    player.speed[1] += -dirY*50;
+    player.speed[0] += -dirX;
+    player.speed[1] += -dirY;
+
+    // shoot bullet
+    bullet.x = player.x;
+    bullet.y = player.y;
+    bullet.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI;
+    bullet.speed[0] = dirX;
+    bullet.speed[1] = dirY;
+    //bullet.speed[0] = 1;
 }
 function handleMouseMove(event) {
     crosshair.x = event.stageX;
