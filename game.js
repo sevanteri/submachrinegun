@@ -1,5 +1,5 @@
 var stage, player, crosshair;
-var bullet, bulletGraph;
+var bullets = [], Bullet, bulletGraph;
 
 var KEYCODE_W = 87;
 var KEYCODE_A = 65;
@@ -17,9 +17,8 @@ function init() {
     player.regY = 32;
 
     bulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(5,0);
-    bullet = new createjs.Shape(bulletGraph);
-    bullet.speed = [0,0];
-    bullet.active = true;
+    Bullet = new createjs.Shape(bulletGraph);
+    Bullet.speed = [0,0];
 
     crosshair = new createjs.Bitmap("crosshair.png");
     crosshair.regX = 25;
@@ -27,7 +26,6 @@ function init() {
 
     stage.addChild(player);
     stage.addChild(crosshair);
-    stage.addChild(bullet);
 
     createjs.Ticker.addEventListener("tick", handleTick);
     createjs.Ticker.setFPS(60);
@@ -42,12 +40,27 @@ function handleTick(event) {
     // move player
     player.x += event.delta/1000*player.speed[0]*500;
     player.y += event.delta/1000*player.speed[1]*500;
+    // TODO: more sane inertia
+    player.speed[0] /= 1.2;
+    player.speed[1] /= 1.2;
 
-    bullet.x += event.delta/1000*bullet.speed[0]*500;
-    bullet.y += event.delta/1000*bullet.speed[1]*500;
+    // move bullets
+    for (b in bullets) {
+        var bullet = bullets[b];
+        if (!bullet.active) continue;
+        if (bullet.x > stage.canvas.width ||
+            bullet.y > stage.canvas.height ||
+            bullet.x < 0 ||
+            bullet.y < 0) {
 
-    player.speed[0] /= 1.112;
-    player.speed[1] /= 1.112;
+            bullet.active = false;
+        } else {
+            bullet.x += event.delta/1000*bullet.speed[0]*500;
+            bullet.y += event.delta/1000*bullet.speed[1]*500;
+        }
+
+    }
+
     stage.update();
 }
 
@@ -60,22 +73,22 @@ function handleMouseDown(event) {
     // calculate direction between player and crosshair
     var mToPX = event.stageX - player.x;
     var mToPY = event.stageY - player.y;
-
     var l = Math.sqrt(Math.pow(mToPX, 2) + Math.pow(mToPY, 2));
-
     var dirX = mToPX / Math.abs(l);
     var dirY = mToPY / Math.abs(l);
 
-    console.log(dirX, dirY);
+    //console.log(dirX, dirY);
     player.speed[0] += -dirX;
     player.speed[1] += -dirY;
 
     // shoot bullet
-    bullet.x = player.x;
-    bullet.y = player.y;
-    bullet.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI;
-    bullet.speed[0] = dirX;
-    bullet.speed[1] = dirY;
+    var b = getBullet();
+    b.x = player.x;
+    b.y = player.y;
+    b.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI;
+    b.speed[0] = dirX;
+    b.speed[1] = dirY;
+    stage.addChild(b);
     //bullet.speed[0] = 1;
 }
 function handleMouseMove(event) {
@@ -109,6 +122,32 @@ function handleKeyUp(event) {
             playerSpeed[0] += playerMaxSpeed[0]; break;
         case KEYCODE_D:
             playerSpeed[0] += -playerMaxSpeed[0]; break;
+    }
+}
+
+function getBullet() {
+    var i=0, len = bullets.length;
+
+    while (i <= len) {
+        if (!bullets[i]) {
+            var b = Bullet.clone();
+            bullets[i] = b;
+            b.active = true;
+            b.speed = [0,0];
+            return b;
+        }
+        else if (!bullets[i].active) {
+            bullets[i].active = true;
+            return bullets[i];
+        }
+        else {
+            i++;
+        }
+
+        if (len == 0) {
+            bullets[0] = Bullet.clone();
+        }
+
     }
 }
 
