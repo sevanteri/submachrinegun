@@ -48,6 +48,7 @@ function initGameOver() {
     createjs.Ticker.removeEventListener("tick", handleTick);
     stage.canvas.style.cursor = "inherit";
     stage.removeChild(player, UIContainer, bulletContainer, enemyContainer);
+    stage.clear();
 
     var goContainer = new createjs.Container();
 
@@ -57,6 +58,11 @@ function initGameOver() {
     goText.x = stage.canvas.width/2 - 175;
     goText.y = stage.canvas.height/2 - 20;
     goContainer.addChild(goText);
+
+    var scoreText = new createjs.Text("Score: " + score, "30px Arial", "#FFFFFF");
+    scoreText.x = goText.x + 120;
+    scoreText.y = goText.y + 80;
+    goContainer.addChild(scoreText);
 
     var startButton = new createjs.Container();
     var startText = new createjs.Text("Try again", "30px Arial", "#FFFFFF");

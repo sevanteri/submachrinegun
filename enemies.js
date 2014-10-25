@@ -15,7 +15,7 @@ Enemy.dir = [0,0];
 Enemy.speed = [0,0];
 Enemy.x = stage.canvas.width/3;
 Enemy.y = stage.canvas.height/4;
-//Enemy.cache(0,0,64,64);
+Enemy.cache(0,0,160,90);
 
 var shootTimer = 0;
 var gunAngle = 140;
@@ -85,8 +85,8 @@ function spawnEnemyAtRandomPoint() {
         [0.5,0.5],
         [-0.5, -0.5]
     ];
-    var i = Math.ceil(Math.random() * 4);
-    var d = Math.ceil(Math.random() * 4);
+    var i = Math.floor(Math.random() * 4);
+    var d = Math.floor(Math.random() * 4);
     e.x = points[i][0];
     e.y = points[i][1];
     e.speed[0] = dirs[d][0];

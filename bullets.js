@@ -89,6 +89,7 @@ function checkEnemyCollision(bullet) {
 
         var pt = bullet.localToLocal(0,0, enemy);
         if (enemy.hitTest(pt.x, pt.y)) {
+            score++;
             enemy.alive = false;
             bullet.active = false;
             enemyContainer.removeChild(enemy);

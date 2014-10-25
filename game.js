@@ -93,3 +93,4 @@ function handleKeyUp(event) {
 
 //init();
 initMainMenu();
+//initGameOver();
