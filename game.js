@@ -7,7 +7,7 @@ function init() {
 
     stage.addChild(player);
     stage.addChild(crosshair);
-    
+
     wallsInit();
     makeBounds();
 

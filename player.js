@@ -6,6 +6,7 @@ player.x = stage.canvas.width/2;
 player.y = stage.canvas.height/2;
 player.regX = 60;
 player.regY = 60;
+player.hp = 5;
 
 function handlePlayerTick(event) {
     var dt = event.delta;
@@ -16,7 +17,7 @@ function handlePlayerTick(event) {
     var l = Math.sqrt(Math.pow(mToPX, 2) + Math.pow(mToPY, 2));
     player.dir[0] = mToPX / Math.abs(l);
     player.dir[1] = mToPY / Math.abs(l);
-    player.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI + 180;
+    player.rotation = dirToAngle(player.dir) + 180;
 
     // move player
     player.x += dt/1000*player.speed[0]*500;

@@ -35,12 +35,9 @@ function handleEnemyTick(event) {
             var b = getEnemyBullet();
 
             b.rotation = enemy.rotation + gunAngle;
-            var rads = (b.rotation) * Math.PI/180;
-            var dirX = Math.cos(rads);
-            var dirY = Math.sin(rads);
-            b.speed = [dirX, dirY];
-            b.x = enemy.x + dirX*60;
-            b.y = enemy.y + dirY*60;
+            b.speed = angleToDir(b.rotation);
+            b.x = enemy.x + b.speed[0]*60;
+            b.y = enemy.y + b.speed[1]*60;
             stage.addChild(b);
             shootTimer = 0;
         }
