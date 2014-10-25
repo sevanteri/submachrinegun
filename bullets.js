@@ -40,6 +40,20 @@ function handleBulletTick(event) {
         } else {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
+            checkEnemyCollision(bullet);
+        }
+    }
+}
+function checkEnemyCollision(bullet) {
+    for (e in enemies) {
+        var enemy = enemies[e];
+
+        var pt = bullet.localToLocal(0,0, enemy);
+        if (enemy.hitTest(pt.x, pt.y)) {
+            enemy.alive = false;
+            bullet.active = false;
+            stage.removeChild(enemy);
+            stage.removeChild(bullet);
         }
     }
 }

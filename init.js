@@ -1,8 +1,8 @@
 
 var stage, player, crosshair;
 var bullets = [], Bullet, bulletGraph;
-
 var Enemy, enemies = [];
+var enemyBullets = [], EnemyBullet, enemyBulletGraph;
 
 var KEYCODE_W = 87;
 var KEYCODE_A = 65;

@@ -50,8 +50,12 @@ function getEnemy() {
             return e;
         }
         else if (!enemies[i].alive) {
-            enemies[i].alive = true;
-            return enemies[i];
+            var e = enemies[i];
+            e.alive = true;
+            e.x = stage.canvas.width/3;
+            e.y = stage.canvas.height/4;
+            e.speed = [0.5,0.5];
+            return e;
         }
         else {
             i++;
