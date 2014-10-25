@@ -1,11 +1,11 @@
 
-player = new createjs.Bitmap("ball.png");
+player = new createjs.Bitmap("player.png");
 player.speed = [0,0];
 player.dir = [0,0];
 player.x = stage.canvas.width/2;
 player.y = stage.canvas.height/2;
-player.regX = 32;
-player.regY = 32;
+player.regX = 60;
+player.regY = 60;
 
 function handlePlayerTick(event) {
     var dt = event.delta;
