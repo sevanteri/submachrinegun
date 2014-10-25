@@ -1,6 +1,7 @@
 
 var stage, player, crosshair;
 var bullets = [], Bullet, bulletGraph;
+var walls;
 var Enemy, enemies = [];
 var enemyBullets = [], EnemyBullet, enemyBulletGraph;
 

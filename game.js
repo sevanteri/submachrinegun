@@ -7,6 +7,9 @@ function init() {
 
     stage.addChild(player);
     stage.addChild(crosshair);
+    
+    wallsInit();
+    makeBounds();
 
     createjs.Ticker.addEventListener("tick", handleTick);
     createjs.Ticker.setFPS(60);
