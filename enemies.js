@@ -7,6 +7,7 @@ var clusterArraySize = 0;
 var clusterArray;
 var clusterDirArray;
 
+enemyContainer = new createjs.Container();
 Enemy = new createjs.Bitmap("enemy_submachrinegun.png");
 Enemy.regX = 55;
 Enemy.regY = 45;
@@ -38,7 +39,7 @@ function handleEnemyTick(event) {
             b.speed = angleToDir(b.rotation);
             b.x = enemy.x + b.speed[0]*60;
             b.y = enemy.y + b.speed[1]*60;
-            stage.addChild(b);
+            bulletContainer.addChild(b);
             shootTimer = 0;
         }
         shootTimer += event.delta;

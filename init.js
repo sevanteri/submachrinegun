@@ -7,6 +7,10 @@ var enemyBullets = [], EnemyBullet, enemyBulletGraph;
 
 var curStage = 0;
 
+var bulletContainer, enemyContainer, wallContainer;
+var UIContainer;
+var HPtext;
+
 var KEYCODE_W = 87;
 var KEYCODE_A = 65;
 var KEYCODE_D = 68;

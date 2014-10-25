@@ -1,4 +1,5 @@
 
+bulletContainer = new createjs.Container();
 enemyBulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(10,0);
 EnemyBullet = new createjs.Shape(enemyBulletGraph);
 EnemyBullet.speed = [0,0];
@@ -57,7 +58,7 @@ function handleBulletTick(event) {
             bullet.y < 0) {
 
             bullet.active = false;
-            stage.removeChild(bullet);
+            bulletContainer.removeChild(bullet);
         } else {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
@@ -73,7 +74,7 @@ function handleBulletTick(event) {
             bullet.y < 0) {
 
             bullet.active = false;
-            stage.removeChild(bullet);
+            bulletContainer.removeChild(bullet);
         } else {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
@@ -91,8 +92,8 @@ function checkEnemyCollision(bullet) {
         if (enemy.hitTest(pt.x, pt.y)) {
             enemy.alive = false;
             bullet.active = false;
-            stage.removeChild(enemy);
-            stage.removeChild(bullet);
+            enemyContainer.removeChild(enemy);
+            bulletContainer.removeChild(bullet);
         }
     }
 }
