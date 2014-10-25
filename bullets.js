@@ -51,25 +51,6 @@ function handleBulletTick(event) {
     for (b in bullets) {
         var bullet = bullets[b];
         if (!bullet.active) continue;
-        /*if (bullet.x > stage.canvas.width ||
-            bullet.y > stage.canvas.height ||
-            bullet.x < 0 ||
-            bullet.y < 0) {
-
-            bullet.active = false;
-            bulletContainer.removeChild(bullet);
-        } 
-        */
-        if (0 == checkWallCollision(bullet)){
-            bullet.x += dt/1000*bullet.speed[0]*500;
-            bullet.y += dt/1000*bullet.speed[1]*500;
-            checkEnemyCollision(bullet);
-        }
-    }
-    for (b in enemyBullets) {
-        var bullet = enemyBullets[b];
-        if (!bullet.active) continue;
-        /*
         if (bullet.x > stage.canvas.width ||
             bullet.y > stage.canvas.height ||
             bullet.x < 0 ||
@@ -78,8 +59,25 @@ function handleBulletTick(event) {
             bullet.active = false;
             bulletContainer.removeChild(bullet);
         }
-        */
-        if (0 == checkWallCollision(bullet)) {
+        else if (0 == checkWallCollision(bullet)){
+            bullet.x += dt/1000*bullet.speed[0]*500;
+            bullet.y += dt/1000*bullet.speed[1]*500;
+            checkEnemyCollision(bullet);
+        }
+    }
+    for (b in enemyBullets) {
+        var bullet = enemyBullets[b];
+        if (!bullet.active) continue;
+        
+        if (bullet.x > stage.canvas.width ||
+            bullet.y > stage.canvas.height ||
+            bullet.x < 0 ||
+            bullet.y < 0) {
+
+            bullet.active = false;
+            bulletContainer.removeChild(bullet);
+        }
+        else if (0 == checkWallCollision(bullet)) {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
             checkPlayerCollision(bullet);
