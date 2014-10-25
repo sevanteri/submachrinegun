@@ -65,20 +65,6 @@ function getEnemy() {
     }
 }
 
-function checkBound(enemy){
-    if (enemy.x + enemy.regX > stage.canvas.width){
-        enemy.speed[0] = -1;
-    }
-    if (enemy.x - enemy.regX < 0){
-        enemy.speed[0]  = 1;
-    }
-    if (enemy.y + enemy.regY > stage.canvas.height){
-        enemy.speed[1]  = -1;
-    }
-    if (enemy.y - enemy.regY < 0){
-        enemy.speed[1]  = 1;
-    }
-}
 
 function spawnCluster(){
     clusterArray[clusterArraySize] = newcreatejs.Bitmap("ball.png");

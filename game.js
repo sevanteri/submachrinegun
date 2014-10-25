@@ -30,6 +30,7 @@ function init() {
     document.onkeyup = handleKeyUp;
 }
 function handleTick(event) {
+    var dt = event.delta;
 
     // calculate direction between player and crosshair
     var mToPX = stage.mouseX - player.x;
@@ -40,12 +41,12 @@ function handleTick(event) {
     player.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI;
 
     // move player
-    player.x += event.delta/1000*player.speed[0]*500;
-    player.y += event.delta/1000*player.speed[1]*500;
-    // rotate player
+    player.x += dt/1000*player.speed[0]*500;
+    player.y += dt/1000*player.speed[1]*500;
+    checkBound(player);
     // TODO: more sane inertia
-    player.speed[0] /= 1.2;
-    player.speed[1] /= 1.2;
+    player.speed[0] -= player.speed[0] * (0.8*dt/1000);
+    player.speed[1] -= player.speed[1] * (0.8*dt/1000);
 
     // move bullets
     for (b in bullets) {
@@ -58,8 +59,8 @@ function handleTick(event) {
 
             bullet.active = false;
         } else {
-            bullet.x += event.delta/1000*bullet.speed[0]*500;
-            bullet.y += event.delta/1000*bullet.speed[1]*500;
+            bullet.x += dt/1000*bullet.speed[0]*500;
+            bullet.y += dt/1000*bullet.speed[1]*500;
         }
 
     }
