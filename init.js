@@ -7,6 +7,7 @@ var enemyBullets = [], EnemyBullet, enemyBulletGraph;
 
 var curStage = 0;
 
+var mainMenuContainer;
 var bulletContainer, enemyContainer, wallContainer;
 var UIContainer;
 var HPtext;

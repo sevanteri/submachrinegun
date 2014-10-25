@@ -1,7 +1,6 @@
 
 bulletContainer = new createjs.Container();
-enemyBulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(10,0);
-EnemyBullet = new createjs.Shape(enemyBulletGraph);
+EnemyBullet = new createjs.Bitmap("enemy_bullet.png");
 EnemyBullet.speed = [0,0];
 
 Bullet = new createjs.Bitmap("bullet_player.png");
@@ -78,7 +77,7 @@ function handleBulletTick(event) {
         } else {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
-            //checkEnemyCollision(bullet);
+            checkPlayerCollision(bullet);
         }
 
     }
@@ -95,5 +94,13 @@ function checkEnemyCollision(bullet) {
             enemyContainer.removeChild(enemy);
             bulletContainer.removeChild(bullet);
         }
+    }
+}
+function checkPlayerCollision(bullet) {
+    var pt = bullet.localToLocal(0,0, player);
+    if (player.hitTest(pt.x, pt.y)) {
+        handlePlayerHit();
+        bullet.active = false;
+        bulletContainer.removeChild(bullet);
     }
 }

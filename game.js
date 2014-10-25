@@ -1,9 +1,15 @@
 
-function init() {
+function initGame() {
+    stage.canvas.style.cursor = "none";
+
+    var background = new createjs.Bitmap("tausta.png");
+    stage.addChild(background);
 
     crosshair = new createjs.Bitmap("crosshair.png");
-    crosshair.regX = 25;
-    crosshair.regY = 25;
+    crosshair.regX = 16;
+    crosshair.regY = 16;
+
+    player.hp = 5;
 
     stage.addChild(player);
     stage.addChild(crosshair);
@@ -12,6 +18,10 @@ function init() {
 
     wallsInit();
     makeBounds();
+
+    enemies = [];
+    bullets = [];
+    enemyBullets = [];
 
     createjs.Ticker.addEventListener("tick", handleTick);
     createjs.Ticker.setFPS(60);
@@ -24,6 +34,8 @@ function init() {
 
     stage.addChild(enemyContainer, bulletContainer);
     stage.addChild(UIContainer);
+
+    initGameUI();
 }
 function handleTick(event) {
 
@@ -73,4 +85,5 @@ function handleKeyUp(event) {
 }
 
 
-init();
+//init();
+initMainMenu();

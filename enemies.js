@@ -35,26 +35,16 @@ function handleEnemyTick(event) {
         if (shootTimer > 500) {
             var b = getEnemyBullet();
 
-            b.rotation = enemy.rotation + gunAngle;
-            b.speed = angleToDir(b.rotation);
-            b.x = enemy.x + b.speed[0]*60;
-            b.y = enemy.y + b.speed[1]*60;
+            var rot = enemy.rotation + gunAngle;
+            b.rotation = enemy.rotation + gunAngle-90;
+            b.speed = angleToDir(rot);
+            b.x = enemy.x + b.speed[0]*62;
+            b.y = enemy.y + b.speed[1]*50;
             bulletContainer.addChild(b);
             shootTimer = 0;
         }
         shootTimer += event.delta;
     }
-    //clusterTimer++;
-    //updateBullet();
-    //updateClusters();
-
-
-    //if (clusterTimer > 100){
-    //clusterTimer = 0;
-    //spawnCluster();
-    //}
-
-    //stage.update();
 }
 function getEnemy() {
     var i=0, len = enemies.length;

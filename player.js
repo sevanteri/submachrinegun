@@ -27,3 +27,12 @@ function handlePlayerTick(event) {
     player.speed[0] -= player.speed[0] * (0.8*dt/500);
     player.speed[1] -= player.speed[1] * (0.8*dt/500);
 }
+function handlePlayerHit() {
+    player.hp -= 1;
+    HPtext.text = "HP: " + player.hp;
+
+    if (player.hp < 1) {
+        initGameOver();
+    }
+
+}
