@@ -22,7 +22,7 @@ function handlePlayerTick(event) {
     player.x += dt/1000*player.speed[0]*500;
     player.y += dt/1000*player.speed[1]*500;
     checkBound(player);
-    // TODO: more sane inertia
-    player.speed[0] -= player.speed[0] * (0.8*dt/1000);
-    player.speed[1] -= player.speed[1] * (0.8*dt/1000);
+    // slow the player a little when not shooting
+    player.speed[0] -= player.speed[0] * (0.8*dt/500);
+    player.speed[1] -= player.speed[1] * (0.8*dt/500);
 }
