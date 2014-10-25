@@ -1,6 +1,9 @@
 
-bulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(5,0);
-Bullet = new createjs.Shape(bulletGraph);
+//bulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(5,0);
+//Bullet = new createjs.Shape(bulletGraph);
+Bullet = new createjs.Bitmap("bullet_player.png");
+Bullet.regX = 46;
+Bullet.regY = 20;
 Bullet.speed = [0,0];
 
 
@@ -46,6 +49,7 @@ function handleBulletTick(event) {
 function checkEnemyCollision(bullet) {
     for (e in enemies) {
         var enemy = enemies[e];
+        if (!enemy.alive) continue;
 
         var pt = bullet.localToLocal(0,0, enemy);
         if (enemy.hitTest(pt.x, pt.y)) {

@@ -7,7 +7,7 @@ var clusterArraySize = 0;
 var clusterArray;
 var clusterDirArray;
 
-Enemy = new createjs.Bitmap("ball.png");
+Enemy = new createjs.Bitmap("enemy_submachrinegun.png");
 Enemy.regX = 32;
 Enemy.regY = 32;
 Enemy.dir = [0,0];
@@ -23,6 +23,7 @@ function handleEnemyTick(event) {
         if (!enemy.alive) continue;
         checkBound(enemy);
 
+        enemy.rotation += event.delta/1000 * 50;
         enemy.x += event.delta/1000*enemy.speed[0]*500;
         enemy.y += event.delta/1000*enemy.speed[1]*500;
     }
