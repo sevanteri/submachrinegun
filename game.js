@@ -7,7 +7,9 @@ function init() {
 
     stage.addChild(player);
     stage.addChild(crosshair);
-    
+
+    player.shadow = new createjs.Shadow("#555555", 4, 4, 10);
+
     wallsInit();
     makeBounds();
 
@@ -19,6 +21,9 @@ function init() {
 
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
+
+    stage.addChild(enemyContainer, bulletContainer);
+    stage.addChild(UIContainer);
 }
 function handleTick(event) {
 
@@ -33,6 +38,7 @@ function handleMouseUp(event) {
 }
 function handleMouseDown(event) {
     // start shooting
+    if (event.nativeEvent.button != 0) return;
 
     // send player to the opposite direction
     player.speed[0] += -player.dir[0];
@@ -44,7 +50,7 @@ function handleMouseDown(event) {
     b.y = player.y;
     b.rotation = player.rotation;
     b.speed = player.dir.splice(0);
-    stage.addChild(b);
+    bulletContainer.addChild(b);
     //bullet.speed[0] = 1;
 }
 function handleMouseMove(event) {
@@ -57,7 +63,7 @@ function handleKeyDown(event) {
     //console.log(event.keyCode);
     switch(event.keyCode) {
         case KEYCODE_W:
-            stage.addChild(getEnemy());
+            enemyContainer.addChild(getEnemy());
     }
 }
 function handleKeyUp(event) {

@@ -5,6 +5,12 @@ var walls;
 var Enemy, enemies = [];
 var enemyBullets = [], EnemyBullet, enemyBulletGraph;
 
+var curStage = 0;
+
+var bulletContainer, enemyContainer, wallContainer;
+var UIContainer;
+var HPtext;
+
 var KEYCODE_W = 87;
 var KEYCODE_A = 65;
 var KEYCODE_D = 68;
@@ -25,4 +31,13 @@ function checkBound(obj){
     if (obj.y - obj.regY < 0){
         obj.speed[1]  = Math.abs(obj.speed[1]);
     }
+}
+function angleToDir(ang) {
+    var rads = (ang) * Math.PI/180;
+    var dirX = Math.cos(rads);
+    var dirY = Math.sin(rads);
+    return [dirX, dirY];
+}
+function dirToAngle(dir) {
+    return Math.atan2(dir[1], dir[0]) * 180/Math.PI;
 }
