@@ -42,6 +42,12 @@ function handleTick(event) {
     handlePlayerTick(event);
     handleBulletTick(event);
     handleEnemyTick(event);
+
+    enemySpawnTimer += event.delta;
+    if (enemySpawnTimer > enemySpawnInterval) {
+        spawnEnemyAtRandomPoint();
+        enemySpawnTimer = 0;
+    }
     stage.update();
 }
 

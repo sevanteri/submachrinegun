@@ -68,7 +68,22 @@ function getEnemy() {
         i++;
     }
 }
+function spawnEnemyAtRandomPoint() {
+    var e = getEnemy();
 
+    var w = stage.canvas.width/4;
+    var h = stage.canvas.height/4;
+    var points = [
+        [w, h],
+        [w, h*3],
+        [w*3, h*3],
+        [w*3, h]
+    ];
+    var i = Math.ceil(Math.random() * 4);
+    e.x = points[i][0];
+    e.y = points[i][1];
+    enemyContainer.addChild(e);
+}
 
 function spawnCluster(){
     clusterArray[clusterArraySize] = newcreatejs.Bitmap("ball.png");

@@ -17,6 +17,9 @@ var KEYCODE_A = 65;
 var KEYCODE_D = 68;
 var KEYCODE_S = 83;
 
+var enemySpawnTimer = 0;
+var enemySpawnInterval = 1000;
+
 stage = new createjs.Stage("gameCanvas");
 
 function checkBound(obj){
