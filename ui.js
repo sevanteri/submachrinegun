@@ -45,6 +45,8 @@ function initMainMenu() {
 }
 
 function initGameOver() {
+    createjs.Ticker.removeEventListener("tick", handleTick);
+    stage.canvas.style.cursor = "inherit";
     stage.removeChild(player, UIContainer, bulletContainer, enemyContainer);
 
     var goContainer = new createjs.Container();

@@ -79,9 +79,18 @@ function spawnEnemyAtRandomPoint() {
         [w*3, h*3],
         [w*3, h]
     ];
+    var dirs = [
+        [0.5,-0.5],
+        [-0.5,0.5],
+        [0.5,0.5],
+        [-0.5, -0.5]
+    ];
     var i = Math.ceil(Math.random() * 4);
+    var d = Math.ceil(Math.random() * 4);
     e.x = points[i][0];
     e.y = points[i][1];
+    e.speed[0] = dirs[d][0];
+    e.speed[1] = dirs[d][1];
     enemyContainer.addChild(e);
 }
 
