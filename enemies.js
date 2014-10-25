@@ -8,13 +8,16 @@ var clusterArray;
 var clusterDirArray;
 
 Enemy = new createjs.Bitmap("enemy_submachrinegun.png");
-Enemy.regX = 32;
-Enemy.regY = 32;
+Enemy.regX = 55;
+Enemy.regY = 45;
 Enemy.dir = [0,0];
 Enemy.speed = [0,0];
 Enemy.x = stage.canvas.width/3;
 Enemy.y = stage.canvas.height/4;
-Enemy.cache(0,0,64,64);
+//Enemy.cache(0,0,64,64);
+
+var shootTimer = 0;
+var gunAngle = 140;
 
 function handleEnemyTick(event) {
     // move enemies
@@ -26,6 +29,22 @@ function handleEnemyTick(event) {
         enemy.rotation += event.delta/1000 * 50;
         enemy.x += event.delta/1000*enemy.speed[0]*500;
         enemy.y += event.delta/1000*enemy.speed[1]*500;
+
+        // shoot
+        if (shootTimer > 500) {
+            var b = getEnemyBullet();
+
+            b.rotation = enemy.rotation + gunAngle;
+            var rads = (b.rotation) * Math.PI/180;
+            var dirX = Math.cos(rads);
+            var dirY = Math.sin(rads);
+            b.speed = [dirX, dirY];
+            b.x = enemy.x + dirX*60;
+            b.y = enemy.y + dirY*60;
+            stage.addChild(b);
+            shootTimer = 0;
+        }
+        shootTimer += event.delta;
     }
     //clusterTimer++;
     //updateBullet();

@@ -1,6 +1,8 @@
 
-//bulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(5,0);
-//Bullet = new createjs.Shape(bulletGraph);
+enemyBulletGraph = new createjs.Graphics().beginStroke("#FF0000").moveTo(-1,0).lineTo(10,0);
+EnemyBullet = new createjs.Shape(enemyBulletGraph);
+EnemyBullet.speed = [0,0];
+
 Bullet = new createjs.Bitmap("bullet_player.png");
 Bullet.regX = 46;
 Bullet.regY = 20;
@@ -25,6 +27,23 @@ function getBullet() {
         i++;
     }
 }
+function getEnemyBullet() {
+    var i=0, len = enemyBullets.length;
+
+    while (i <= len) {
+        if (!enemyBullets[i]) {
+            var b = EnemyBullet.clone();
+            enemyBullets[i] = b;
+            b.active = true;
+            return b;
+        }
+        else if (!enemyBullets[i].active) {
+            enemyBullets[i].active = true;
+            return enemyBullets[i];
+        }
+        i++;
+    }
+}
 
 function handleBulletTick(event) {
     var dt = event.delta;
@@ -44,6 +63,23 @@ function handleBulletTick(event) {
             bullet.y += dt/1000*bullet.speed[1]*500;
             checkEnemyCollision(bullet);
         }
+    }
+    for (b in enemyBullets) {
+        var bullet = enemyBullets[b];
+        if (!bullet.active) continue;
+        if (bullet.x > stage.canvas.width ||
+            bullet.y > stage.canvas.height ||
+            bullet.x < 0 ||
+            bullet.y < 0) {
+
+            bullet.active = false;
+            stage.removeChild(bullet);
+        } else {
+            bullet.x += dt/1000*bullet.speed[0]*500;
+            bullet.y += dt/1000*bullet.speed[1]*500;
+            //checkEnemyCollision(bullet);
+        }
+
     }
 }
 function checkEnemyCollision(bullet) {

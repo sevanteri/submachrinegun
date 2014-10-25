@@ -33,6 +33,7 @@ function handleMouseUp(event) {
 }
 function handleMouseDown(event) {
     // start shooting
+    if (event.nativeEvent.button != 0) return;
 
     // send player to the opposite direction
     player.speed[0] += -player.dir[0];
