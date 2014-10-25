@@ -17,7 +17,8 @@ function initGame() {
     player.shadow = new createjs.Shadow("#555555", 4, 4, 10);
 
     wallsInit();
-    makeBounds();
+    //makeBounds();
+    makeBoundswSize(10);
 
     enemies = [];
     bullets = [];

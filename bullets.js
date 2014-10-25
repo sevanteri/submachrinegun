@@ -51,14 +51,16 @@ function handleBulletTick(event) {
     for (b in bullets) {
         var bullet = bullets[b];
         if (!bullet.active) continue;
-        if (bullet.x > stage.canvas.width ||
+        /*if (bullet.x > stage.canvas.width ||
             bullet.y > stage.canvas.height ||
             bullet.x < 0 ||
             bullet.y < 0) {
 
             bullet.active = false;
             bulletContainer.removeChild(bullet);
-        } else {
+        } 
+        */
+        if (0 == checkWallCollision(bullet)){
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
             checkEnemyCollision(bullet);
@@ -67,6 +69,7 @@ function handleBulletTick(event) {
     for (b in enemyBullets) {
         var bullet = enemyBullets[b];
         if (!bullet.active) continue;
+        /*
         if (bullet.x > stage.canvas.width ||
             bullet.y > stage.canvas.height ||
             bullet.x < 0 ||
@@ -74,7 +77,9 @@ function handleBulletTick(event) {
 
             bullet.active = false;
             bulletContainer.removeChild(bullet);
-        } else {
+        }
+        */
+        if (0 == checkWallCollision(bullet)) {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
             checkPlayerCollision(bullet);
@@ -104,4 +109,18 @@ function checkPlayerCollision(bullet) {
         bullet.active = false;
         bulletContainer.removeChild(bullet);
     }
+}
+function checkWallCollision(bullet){
+    var pt;
+    
+    for (w in walls){
+        pt = bullet.localToLocal(0,0,walls[w]);
+        if (walls[w].hitTest(pt.x, pt.y)){
+            console.log("bullet collided with a wall");
+            bullet.active = false;
+            bulletContainer.removeChild(bullet);
+            return 1;
+        }
+    }
+    return 0;
 }
