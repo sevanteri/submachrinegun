@@ -114,7 +114,6 @@ function checkWallCollision(bullet){
     for (w in walls){
         pt = bullet.localToLocal(0,0,walls[w]);
         if (walls[w].hitTest(pt.x, pt.y)){
-            console.log("bullet collided with a wall");
             bullet.active = false;
             bulletContainer.removeChild(bullet);
             return 1;

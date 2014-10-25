@@ -22,7 +22,8 @@ function handlePlayerTick(event) {
     // move player
     player.x += dt/1000*player.speed[0]*500;
     player.y += dt/1000*player.speed[1]*500;
-    checkBound(player);
+    //checkBound(player);
+    checkPlayerWallCollision();
     // slow the player a little when not shooting
     player.speed[0] -= player.speed[0] * (0.8*dt/500);
     player.speed[1] -= player.speed[1] * (0.8*dt/500);
@@ -35,4 +36,34 @@ function handlePlayerHit() {
         initGameOver();
     }
 
+}
+var playerRadius = Math.max(player.regX, player.regY);
+function checkPlayerWallCollision() {
+    player.left = player.x - playerRadius;
+    player.top = player.y - playerRadius;
+    player.right = player.x + playerRadius;
+    player.bottom = player.y + playerRadius;
+    for (w in walls) {
+        var wall = walls[w];
+        var wBounds = wall.getBounds();
+        if (player.bottom > wall.y && player.top < wall.y + wBounds.height) {
+            // horizontal detection
+            if (player.left < wall.x + wBounds.width && player.x > wall.x) {
+                player.speed[0] = Math.abs(player.speed[0]);
+            }
+            else if (player.right > wall.x && player.x < wall.x + wBounds.width) {
+                player.speed[0] = -Math.abs(player.speed[0]);
+            }
+        } 
+        if (player.left < wall.x + wBounds.width && player.right > wall.x) {
+            // vertical detection
+            if (player.top < wall.y + wBounds.height && player.y > wall.y) {
+                player.speed[1] = Math.abs(player.speed[1]);
+            }
+            else if (player.bottom > wall.y && player.y < wall.y + wBounds.height) {
+                player.speed[1] = -Math.abs(player.speed[1]);
+            }
+        }
+
+    }
 }
