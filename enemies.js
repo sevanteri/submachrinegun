@@ -57,9 +57,7 @@ function getEnemy() {
             e.speed = [0.5,0.5];
             return e;
         }
-        else {
-            i++;
-        }
+        i++;
     }
 }
 

@@ -19,9 +19,7 @@ function getBullet() {
             bullets[i].active = true;
             return bullets[i];
         }
-        else {
-            i++;
-        }
+        i++;
     }
 }
 
@@ -37,6 +35,7 @@ function handleBulletTick(event) {
             bullet.y < 0) {
 
             bullet.active = false;
+            stage.removeChild(bullet);
         } else {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;

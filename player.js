@@ -16,7 +16,7 @@ function handlePlayerTick(event) {
     var l = Math.sqrt(Math.pow(mToPX, 2) + Math.pow(mToPY, 2));
     player.dir[0] = mToPX / Math.abs(l);
     player.dir[1] = mToPY / Math.abs(l);
-    player.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI;
+    player.rotation = Math.atan2(mToPY, mToPX) * 180/Math.PI + 180;
 
     // move player
     player.x += dt/1000*player.speed[0]*500;
