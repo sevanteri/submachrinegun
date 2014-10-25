@@ -33,3 +33,23 @@ function makeBounds(){
     walls[3].y = 0;
     stage.addChild(walls[3]);
 }
+
+function verticalObstacle(x, y, length){
+    var i = walls.length;
+    
+    walls[i] = new createjs.Shape();
+    walls[i].graphics.beginFill("blue").drawRect(0,0,10,length);
+    walls[i].x = x;
+    walls[i].y = y;
+    stage.addChild(walls[i]);
+}
+
+function horizontalObstacle(x, y, length){
+    var i = walls.length;
+    
+    walls[i] = new createjs.Shape();
+    walls[i].graphics.beginFill("blue").drawRect(0,0,length,10);
+    walls[i].x = x;
+    walls[i].y = y;
+    stage.addChild(walls[i]);
+}
