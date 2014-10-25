@@ -7,20 +7,14 @@ var clusterArraySize = 0;
 var clusterArray;
 var clusterDirArray;
 
-
-function enemiesInit() {
-    Enemy = new createjs.Bitmap("ball.png");
-    Enemy.regX = 32;
-    Enemy.regY = 32;
-    Enemy.dir = [0,0];
-    Enemy.speed = [0,0];
-    Enemy.x = stage.canvas.width/3;
-    Enemy.y = stage.canvas.height/4;
-
-    //Enemy.cache(0,0,64,64);
-
-    enemies = [];
-}
+Enemy = new createjs.Bitmap("ball.png");
+Enemy.regX = 32;
+Enemy.regY = 32;
+Enemy.dir = [0,0];
+Enemy.speed = [0,0];
+Enemy.x = stage.canvas.width/3;
+Enemy.y = stage.canvas.height/4;
+Enemy.cache(0,0,64,64);
 
 function handleEnemyTick(event) {
     // move enemies
@@ -52,7 +46,7 @@ function getEnemy() {
             var e = Enemy.clone();
             enemies[i] = e;
             e.alive = true;
-            e.speed = [1,1];
+            e.speed = [0.5,0.5];
             return e;
         }
         else if (!enemies[i].alive) {
