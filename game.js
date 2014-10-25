@@ -1,13 +1,5 @@
-var stage, player, crosshair;
-var bullets = [], Bullet, bulletGraph;
-
-var KEYCODE_W = 87;
-var KEYCODE_A = 65;
-var KEYCODE_D = 68;
-var KEYCODE_S = 83;
 
 function init() {
-    stage = new createjs.Stage("gameCanvas");
 
     player = new createjs.Bitmap("ball.png");
     player.speed = [0,0];
@@ -72,12 +64,12 @@ function handleTick(event) {
 
     }
 
+    handleEnemyTick(event);
     stage.update();
 }
 
 function handleMouseUp(event) {
     // stop shooting
-    console.log(player);
 }
 function handleMouseDown(event) {
     // start shooting
@@ -105,27 +97,12 @@ function handleKeyDown(event) {
     //console.log(event.keyCode);
     switch(event.keyCode) {
         case KEYCODE_W:
-            playerSpeed[1] += -playerMaxSpeed[1]; break;
-        case KEYCODE_S:
-            playerSpeed[1] += playerMaxSpeed[1]; break;
-        case KEYCODE_A:
-            playerSpeed[0] += -playerMaxSpeed[0]; break;
-        case KEYCODE_D:
-            playerSpeed[0] += playerMaxSpeed[0]; break;
-
+            stage.addChild(getEnemy());
     }
 }
 function handleKeyUp(event) {
     if (!event) event = window.event;
     switch(event.keyCode) {
-        case KEYCODE_W:
-            playerSpeed[1] += playerMaxSpeed[1]; break;
-        case KEYCODE_S:
-            playerSpeed[1] += -playerMaxSpeed[1]; break;
-        case KEYCODE_A:
-            playerSpeed[0] += playerMaxSpeed[0]; break;
-        case KEYCODE_D:
-            playerSpeed[0] += -playerMaxSpeed[0]; break;
     }
 }
 
@@ -147,12 +124,8 @@ function getBullet() {
         else {
             i++;
         }
-
-        if (len == 0) {
-            bullets[0] = Bullet.clone();
-        }
-
     }
 }
 
+enemiesInit();
 init();

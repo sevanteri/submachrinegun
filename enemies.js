@@ -1,4 +1,3 @@
-var stage = new createjs.Stage("gameCanvas");
 var invertedX = false;
 var invertedY = false;
 var clusterTimer = 0;
@@ -8,108 +7,130 @@ var clusterArraySize = 0;
 var clusterArray;
 var clusterDirArray;
 
-var bullet = new createjs.Bitmap("ball.png");
-//bullet.speed = [0,0];
-bullet.x = stage.canvas.width/2;
-bullet.y = stage.canvas.height - 35;
 
-bullet.regX = 32;
-bullet.regY = 32;
+function enemiesInit() {
+    Enemy = new createjs.Bitmap("ball.png");
+    Enemy.regX = 32;
+    Enemy.regY = 32;
+    Enemy.dir = [0,0];
+    Enemy.speed = [0,0];
+    Enemy.x = stage.canvas.width/3;
+    Enemy.y = stage.canvas.height/4;
+
+    //Enemy.cache(0,0,64,64);
+
+    enemies = [];
+}
+
+function handleEnemyTick(event) {
+    // move enemies
+    for (e in enemies) {
+        var enemy = enemies[e];
+        if (!enemy.alive) continue;
+        checkBound(enemy);
+
+        enemy.x += event.delta/1000*enemy.speed[0]*500;
+        enemy.y += event.delta/1000*enemy.speed[1]*500;
+    }
+    //clusterTimer++;
+    //updateBullet();
+    //updateClusters();
 
 
-//var ball = new createjs.Bitmap("ball.png");
-stage.addChild(bullet);
+    //if (clusterTimer > 100){
+    //clusterTimer = 0;
+    //spawnCluster();
+    //}
 
-createjs.Ticker.addEventListener("tick", handleTick);
+    //stage.update();
+}
+function getEnemy() {
+    var i=0, len = enemies.length;
 
-function checkBound(){
-  if (bullet.x + 32 > stage.canvas.width){
-    invertedX = true;
-  }
-  if (bullet.x - 32 < 0){
-    invertedX = false;
-  }
-  if (bullet.y + 32 > stage.canvas.height){
-    invertedY = true;
-  }
-  if (bullet.y - 32 < 0){
-    invertedY = false;
-  }
+    while (i <= len) {
+        if (!enemies[i]) {
+            var e = Enemy.clone();
+            enemies[i] = e;
+            e.alive = true;
+            e.speed = [1,1];
+            return e;
+        }
+        else if (!enemies[i].alive) {
+            enemies[i].alive = true;
+            return enemies[i];
+        }
+        else {
+            i++;
+        }
+    }
+}
+
+function checkBound(enemy){
+    if (enemy.x + enemy.regX > stage.canvas.width){
+        enemy.speed[0] = -1;
+    }
+    if (enemy.x - enemy.regX < 0){
+        enemy.speed[0]  = 1;
+    }
+    if (enemy.y + enemy.regY > stage.canvas.height){
+        enemy.speed[1]  = -1;
+    }
+    if (enemy.y - enemy.regY < 0){
+        enemy.speed[1]  = 1;
+    }
 }
 
 function spawnCluster(){
-  clusterArray[clusterArraySize] = newcreatejs.Bitmap("ball.png");
+    clusterArray[clusterArraySize] = newcreatejs.Bitmap("ball.png");
 
-  cluster.x = bullet.x;
-  cluster.y = bullet.y;
+    cluster.x = bullet.x;
+    cluster.y = bullet.y;
 
-  clusterDirArray[clusterArraySize] = clusterDirection;
-    
-  /*
-  
-  */
+    clusterDirArray[clusterArraySize] = clusterDirection;
 
-  clusterArraySize++;  
+    clusterArraySize++;
 
-  if (clusterDirection != 4){
-    clusterDirection = clusterDirection + 1;
-  }
-  else{
-    clusterDirection = 1;
-  }
+    if (clusterDirection != 4){
+        clusterDirection = clusterDirection + 1;
+    }
+    else{
+        clusterDirection = 1;
+    }
 }
 
 function updateBullet(){
-  if (invertedY == false){
-    bullet.y += 5;
-  }
-  else{
-    bullet.y -= 5;
-  }
-  if (invertedX == false){
-    bullet.x += 5;
-  }
-  else{
-    bullet.x -= 5;
-  }
+    if (invertedY == false){
+        bullet.y += 5;
+    }
+    else{
+        bullet.y -= 5;
+    }
+    if (invertedX == false){
+        bullet.x += 5;
+    }
+    else{
+        bullet.x -= 5;
+    }
 }
 
 function updateCluster(){
-  var i = 0;
-  while (i < clusterArraySize){
-    switch (clusterDirArray[i]){
-      case 1:
-        // liikutaan ylospain ja alaspain
-        
-      case 2:
-        // liikutaan oikealle ylaviistoon ja vasemmalle alaviistoon
-        
-      case 3:
-        // liikutellaan oikealle ja vasemmalle
-        
-      case 4:
-        
+    var i = 0;
+    while (i < clusterArraySize){
+        switch (clusterDirArray[i]){
+            case 1:
+                // liikutaan ylospain ja alaspain
+
+            case 2:
+                // liikutaan oikealle ylaviistoon ja vasemmalle alaviistoon
+
+            case 3:
+                // liikutellaan oikealle ja vasemmalle
+
+            case 4:
+
+        }
     }
-  }
 
 }
 
-function handleTick(event) {
-    checkBound();
-    clusterTimer++;
-    
-    updateBullet();
-    updateClusters();
-
-    
-
-    if (clusterTimer > 100){
-      clusterTimer = 0;
-      spawnCluster();
-      
-      
-    }
-
-    stage.update();
-}
 
