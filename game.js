@@ -18,7 +18,7 @@ function initGame() {
     var background = new createjs.Bitmap("tausta.png");
     stage.addChild(background);
 
-    createjs.Sound.play("jigga", createjs.Sound.INTERRUPT_NONE, 0,0,-1, 0.5);
+    createjs.Sound.play("jigga", createjs.Sound.INTERRUPT_NONE, 0,0,-1, 0.3);
 
     player.hp = 99;
 
