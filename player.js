@@ -22,11 +22,11 @@ function handlePlayerTick(event) {
     // move player
     player.x += dt/1000*player.speed[0]*500;
     player.y += dt/1000*player.speed[1]*500;
-    //checkBound(player);
-    checkPlayerWallCollision();
     // slow the player a little when not shooting
     player.speed[0] -= player.speed[0] * (0.8*dt/500);
     player.speed[1] -= player.speed[1] * (0.8*dt/500);
+    //checkBound(player);
+    checkPlayerWallCollision();
 }
 function handlePlayerHit() {
     player.hp -= 1;
