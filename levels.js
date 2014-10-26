@@ -19,7 +19,7 @@ function nextLevel(){
     
     wallsInit();
     //makeBounds();
-    makeBoundswSize(10);
+    //makeBoundswSize(10);
     
     switch (level){
         case 1:
@@ -55,9 +55,9 @@ function makeLevel3(){
 function bossBattle(bossNum){
     boss = new createjs.Shape();
     boss.speed = [0,0];
-    var bossAlive = true;
+    boss.alive = true;
     wallsInit();
-    makeBoundswSize(10);
+    //makeBoundswSize(10);
     
     //poista kaikki enemyt. bulletit lentaa pois ruudusta, jos niita ei haluta poistaa
     for (e in enemies){
@@ -85,6 +85,7 @@ function createBoss(bossNumber){
     if (1 == bossNumber){
         //bossHP = 5;
         boss.graphics.beginFill("red").drawCircle(0,0,40);
+        boss.regX = boss.regY = 20;
         boss.x = 600;
         boss.y = 500;
         boss.hp = 5;
@@ -92,11 +93,12 @@ function createBoss(bossNumber){
         boss.speed = [0,-3];
         boss.chkRad = 30;
         boss.shootTimer = 0;
-        stage.addChild(boss);
+        enemyContainer.addChild(boss);
     }
     if (2 == bossNumber){
         //bossHP = 15;
         boss.graphics.beginFill("red").drawRect(0,0,40, 40);
+        boss.regX = boss.regY = 20;
         boss.x = 600;
         boss.y = 500;
         boss.hp = 15;
@@ -104,11 +106,13 @@ function createBoss(bossNumber){
         boss.speed = [3,-3];
         boss.chkRad = 20;
         boss.shootTimer = 0;
-        stage.addChild(boss);
+        enemyContainer.addChild(boss);
     }
     if (3 == bossNumber){
         //boss HP = 35;
         boss.graphics.beginFill("red").drawRoundRect(0,0,80,40,20);
+        boss.regX = 40;
+        boss.regY = 20;
         boss.x = 600;
         boss.y = 500;
         boss.hp = 35;
@@ -116,11 +120,11 @@ function createBoss(bossNumber){
         boss.speed = [0,0];
         boss.chkRad = 50;
         boss.shootTimer = 0;
-        stage.addChild(boss);
+        enemyContainer.addChild(boss);
     }
 }
 
-function handleBossTick(){
+function handleBossTick(event){
     // collision detection
     /*
     if (boss.x + boss.speed[0] > ){
@@ -128,12 +132,13 @@ function handleBossTick(){
     }
     */
     
-    bossCollisionCheck(boss, boss.chkRad);
-    boss.x = boss.x + boss.speed[0];
-    boss.y = boss.y + boss.speed[1];
+    checkBound(boss);
+    //bossCollisionCheck(boss, boss.chkRad);
+    boss.x += event.delta/1000 * boss.speed[0]*100;
+    boss.y += event.delta/1000 * boss.speed[1]*100;
     
-    boss.shootTimer += 1;
-    if (boss.shootTimer > 100 - boss.hp){
+    boss.shootTimer += event.delta;
+    if (boss.shootTimer > 1000 - boss.hp*50){
         //shoot
         boss.shootTimer = 0;
     }
@@ -156,7 +161,7 @@ function handleBossHit(){
             // winScreen()
         }
         changingLevel = false;
-        stage.removeChild(boss);
+        enemyContainer.removeChild(boss);
         
         
     }

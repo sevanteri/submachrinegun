@@ -117,7 +117,6 @@ function checkBossCollision(bullet){
     var pt = bullet.localToLocal(0,0,boss);
     if (boss.hitTest(pt.x, pt.y)){
         handleBossHit();
-        console.log("boss.hp ==", boss.hp);
         bullet.active = false;
         bulletContainer.removeChild(bullet);
     }

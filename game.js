@@ -67,7 +67,8 @@ function handleTick(event) {
     
     
     if (changingLevel == true){
-        handleBossTick(event);
+        if (boss.alive)
+            handleBossTick(event);
     }
     
     handlePlayerTick(event);

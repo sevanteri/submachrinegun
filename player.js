@@ -25,7 +25,7 @@ function handlePlayerTick(event) {
     // move player
     player.x += dt/1000*player.speed[0]*500;
     player.y += dt/1000*player.speed[1]*500;
-    //checkBound(player);
+    checkBound(player);
     checkPlayerWallCollision();
 }
 function handlePlayerHit() {
