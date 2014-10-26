@@ -14,14 +14,11 @@ function nextLevel(){
     }
     */
     
-    /*
     if (level > 1){
         for (w in walls){
-            val wall = walls[w];
-            walls.removeChild(wall);
+            stage.removeChild(walls[w]);
         }
     }
-    */
     
     wallsInit();
     //makeBounds();
@@ -59,6 +56,7 @@ function makeLevel3(){
 
 function bossBattle(bossNum){
     boss = new createjs.Shape();
+    boss.speed = [0,0];
     var bossAlive = true;
     wallsInit();
     makeBoundswSize(10);
@@ -80,10 +78,10 @@ function bossBattle(bossNum){
     
     createBoss(bossNum);
     console.log("boss Created. bossHP:", boss.hp);
-    while (bossAlive){
-        handleBossTick(event);
-        handlePlayerTick(event);
-    }
+    //while (bossAlive){
+        //handleBossTick(event);
+        //handlePlayerTick(event);
+    //}
     console.log("after bossBattle");
 }
 
@@ -101,7 +99,7 @@ function createBoss(bossNumber){
     }
     if (2 == bossNumber){
         bossHP = 15;
-        boss.graphics.beginFill("red").drawRectangle(0,0,40, 40);
+        boss.graphics.beginFill("red").drawRect(0,0,40, 40);
         boss.x = 600;
         boss.y = 500;
         boss.hp = 5;
