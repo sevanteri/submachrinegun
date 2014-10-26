@@ -46,7 +46,7 @@ function checkPlayerWallCollision() {
     for (w in walls) {
         var wall = walls[w];
         var wBounds = wall.getBounds();
-        if (player.bottom > wall.y && player.top < wall.y + wBounds.height) {
+        if (player.y > wall.y && player.y < wall.y + wBounds.height) {
             // horizontal detection
             if (player.left < wall.x + wBounds.width && player.x > wall.x) {
                 player.speed[0] = Math.abs(player.speed[0]);
@@ -54,16 +54,16 @@ function checkPlayerWallCollision() {
             else if (player.right > wall.x && player.x < wall.x + wBounds.width) {
                 player.speed[0] = -Math.abs(player.speed[0]);
             }
-        } 
-        if (player.left < wall.x + wBounds.width && player.right > wall.x) {
+        }
+        if (player.x < wall.x + wBounds.width && player.x > wall.x) {
             // vertical detection
             if (player.top < wall.y + wBounds.height && player.y > wall.y) {
+                console.log("hit top");
                 player.speed[1] = Math.abs(player.speed[1]);
             }
             else if (player.bottom > wall.y && player.y < wall.y + wBounds.height) {
                 player.speed[1] = -Math.abs(player.speed[1]);
             }
         }
-
     }
 }
