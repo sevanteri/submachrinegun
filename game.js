@@ -4,6 +4,7 @@ var stuff = [
 {id: 'player_hit', src:'player_hit.ogg'},
 {id: 'enemy_hit', src:'enemy_hit.ogg'},
 {id: 'boss_death', src:'boss_death.ogg'},
+{id: 'jigga', src:'jigga.wav'},
 ];
 var preload = new createjs.LoadQueue();
 preload.installPlugin(createjs.Sound);
@@ -17,6 +18,7 @@ function initGame() {
     var background = new createjs.Bitmap("tausta.png");
     stage.addChild(background);
 
+    createjs.Sound.play("jigga", createjs.Sound.INTERRUPT_NONE, 0,0,-1, 0.5);
 
     player.hp = 99;
 
