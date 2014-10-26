@@ -169,7 +169,6 @@ function checkEnemyWallCollision(enemy) {
         if (enemy.x < wall.x + wBounds.width && enemy.x > wall.x) {
             // vertical detection
             if (enemy.top < wall.y + wBounds.height && enemy.y > wall.y) {
-                console.log("hit top");
                 enemy.speed[1] = Math.abs(enemy.speed[1]);
             }
             else if (enemy.bottom > wall.y && enemy.y < wall.y + wBounds.height) {

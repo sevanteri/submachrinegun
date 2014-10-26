@@ -19,12 +19,12 @@ function handlePlayerTick(event) {
     player.dir[1] = mToPY / Math.abs(l);
     player.rotation = dirToAngle(player.dir) + 180;
 
-    // move player
-    player.x += dt/1000*player.speed[0]*500;
-    player.y += dt/1000*player.speed[1]*500;
     // slow the player a little when not shooting
     player.speed[0] -= player.speed[0] * (0.8*dt/500);
     player.speed[1] -= player.speed[1] * (0.8*dt/500);
+    // move player
+    player.x += dt/1000*player.speed[0]*500;
+    player.y += dt/1000*player.speed[1]*500;
     //checkBound(player);
     checkPlayerWallCollision();
 }
@@ -58,7 +58,6 @@ function checkPlayerWallCollision() {
         if (player.x < wall.x + wBounds.width && player.x > wall.x) {
             // vertical detection
             if (player.top < wall.y + wBounds.height && player.y > wall.y) {
-                console.log("hit top");
                 player.speed[1] = Math.abs(player.speed[1]);
             }
             else if (player.bottom > wall.y && player.y < wall.y + wBounds.height) {
