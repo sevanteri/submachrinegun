@@ -26,6 +26,7 @@ function handleEnemyTick(event) {
         var enemy = enemies[e];
         if (!enemy.alive) continue;
         checkBound(enemy);
+        checkEnemyWallCollision(enemy);
 
         enemy.rotation += event.delta/1000 * 50;
         enemy.x += event.delta/1000*enemy.speed[0]*500;
@@ -147,4 +148,34 @@ function updateCluster(){
 
 }
 
+var enemyRadius = Math.max(Enemy.regX, Enemy.regY);
+function checkEnemyWallCollision(enemy) {
+    enemy.left = enemy.x - enemyRadius;
+    enemy.top = enemy.y - enemyRadius;
+    enemy.right = enemy.x + enemyRadius;
+    enemy.bottom = enemy.y + enemyRadius;
+    for (w in walls) {
+        var wall = walls[w];
+        var wBounds = wall.getBounds();
+        if (enemy.y > wall.y && enemy.y < wall.y + wBounds.height) {
+            // horizontal detection
+            if (enemy.left < wall.x + wBounds.width && enemy.x > wall.x) {
+                enemy.speed[0] = Math.abs(enemy.speed[0]);
+            }
+            else if (enemy.right > wall.x && enemy.x < wall.x + wBounds.width) {
+                enemy.speed[0] = -Math.abs(enemy.speed[0]);
+            }
+        }
+        if (enemy.x < wall.x + wBounds.width && enemy.x > wall.x) {
+            // vertical detection
+            if (enemy.top < wall.y + wBounds.height && enemy.y > wall.y) {
+                console.log("hit top");
+                enemy.speed[1] = Math.abs(enemy.speed[1]);
+            }
+            else if (enemy.bottom > wall.y && enemy.y < wall.y + wBounds.height) {
+                enemy.speed[1] = -Math.abs(enemy.speed[1]);
+            }
+        }
+    }
+}
 
