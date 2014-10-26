@@ -2,8 +2,10 @@
 var stage, player, crosshair;
 var bullets = [], Bullet, bulletGraph;
 var walls;
+var level = 0;
 var Enemy, enemies = [];
 var enemyBullets = [], EnemyBullet, enemyBulletGraph;
+var changingLevel = false;
 
 var curStage = 0;
 var score = 0;

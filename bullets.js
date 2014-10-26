@@ -62,7 +62,12 @@ function handleBulletTick(event) {
         else if (0 == checkWallCollision(bullet)){
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
-            checkEnemyCollision(bullet);
+            if (changingLevel == false){
+                checkEnemyCollision(bullet);
+            }
+            else{
+                checkBossCollision(bullet);
+            }
         }
     }
     for (b in enemyBullets) {
@@ -104,6 +109,15 @@ function checkPlayerCollision(bullet) {
     var pt = bullet.localToLocal(0,0, player);
     if (player.hitTest(pt.x, pt.y)) {
         handlePlayerHit();
+        bullet.active = false;
+        bulletContainer.removeChild(bullet);
+    }
+}
+function checkBossCollision(bullet){
+    var pt = bullet.localToLocal(0,0,boss);
+    if (boss.hitTest(pt.x, pt.y)){
+        handleBossHit();
+        console.log("boss.hp ==", boss.hp);
         bullet.active = false;
         bulletContainer.removeChild(bullet);
     }

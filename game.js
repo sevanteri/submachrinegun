@@ -1,5 +1,7 @@
 
 function initGame() {
+    //level = 0;
+    
     stage.canvas.style.cursor = "none";
 
     var background = new createjs.Bitmap("tausta.png");
@@ -9,16 +11,22 @@ function initGame() {
     crosshair.regX = 16;
     crosshair.regY = 16;
 
-    player.hp = 5;
+    player.hp = 99;
 
     stage.addChild(player);
     stage.addChild(crosshair);
 
     player.shadow = new createjs.Shadow("#555555", 4, 4, 10);
-
-    wallsInit();
+    
+    
+    console.log("before nextLevel");
+    nextLevel();
+    console.log("after nextLevel");
+    //wallsInit();
+    //makeBoundswSize(10);
     //makeBounds();
-    makeBoundswSize(10);
+    //level = 1;
+    
 
     enemies = [];
     bullets = [];
@@ -39,13 +47,40 @@ function initGame() {
     initGameUI();
 }
 function handleTick(event) {
-
+    
+    if ((score > 1 && score < 6) && changingLevel == false){
+        //createBoss();
+        //bossBattle();
+        changingLevel = true;
+        //despawn all enemies
+        nextLevel();
+        //changingLevel = false;
+    }
+    if ((score > 14 && score < 18) && changingLevel == false){
+        console.log("before second nextLevel");
+        changingLevel = true;
+        nextLevel();
+        console.log("after second nextLevel");
+    }
+    
+    if (changingLevel == true){
+        handleBossTick(event);
+    }
+    
     handlePlayerTick(event);
     handleBulletTick(event);
-    handleEnemyTick(event);
+    /*
+    
+    */
+    if (changingLevel == false){
+        handleEnemyTick(event);
 
-    enemySpawnTimer += event.delta;
+        enemySpawnTimer += event.delta;
+    }
     if (enemySpawnTimer > enemySpawnInterval) {
+        if (changingLevel == true){
+            console.log("changing level and spawning enemy. not supposed to be like this!");
+        }
         spawnEnemyAtRandomPoint();
         enemySpawnTimer = 0;
     }
