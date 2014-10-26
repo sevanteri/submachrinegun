@@ -31,8 +31,8 @@ function handlePlayerTick(event) {
     //count combo
     if (player.comboTimer > 0){
         //console.log("in comboTimer if");
-        player.comboTimer = player.comboTimer - 1;
-        if (0 == player.comboTimer){
+        player.comboTimer -= event.delta;
+        if (0 == player.comboTimer) {
             player.comboMultiplier = 1;
         }
     }

@@ -88,7 +88,7 @@ function createBoss(bossNumber){
         boss.regX = boss.regY = 10;
         boss.x = 600;
         boss.y = 500;
-        boss.hp = 5;
+        boss.hp = 10;
         boss.num = 1;
         boss.speed = [0,-3];
         boss.chkRad = 30;
@@ -102,7 +102,7 @@ function createBoss(bossNumber){
         boss.regX = boss.regY = 40;
         boss.x = 600;
         boss.y = 500;
-        boss.hp = 2;
+        boss.hp = 20;
         boss.num = 2;
         boss.speed = [3,-3];
         boss.chkRad = 20;
@@ -118,9 +118,9 @@ function createBoss(bossNumber){
         boss.regY = 20;
         boss.x = 600;
         boss.y = 500;
-        boss.hp = 5;
+        boss.hp = 35;
         boss.num = 3;
-        boss.speed = [0,0];
+        boss.speed = [-0.8,-0.5];
         boss.chkRad = 50;
         boss.shootInterval = 50;
         boss.shootAngle = 200;
@@ -142,7 +142,7 @@ function handleBossTick(event){
     boss.y += event.delta/1000 * boss.speed[1]*100;
     boss.rotation += event.delta/1000 * boss.shootAngle;
     shootTimer += event.delta;
-    if (shootTimer > boss.shootInterval + boss.hp*10){
+    if (shootTimer > boss.shootInterval){
         //shoot
         shootTimer = 0;
 

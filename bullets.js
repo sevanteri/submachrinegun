@@ -136,17 +136,9 @@ function checkEnemyCollision(bullet) {
         if (enemy.hitTest(pt.x, pt.y)) {
             //score++;
             score = score + (1 * multiplier);
-            //console.log("score ==", score, "multiplier was", multiplier);
-            player.comboTimer = 60;
+            player.comboTimer = 4000;
             player.comboMultiplier++;
-            //console.log("score ==", score, " comboMult ==", comboMult);
-            //console.log("comboTim ==", comboTim);
-            
-            //console.log("score ==", score, " comboMultiplier ==", player.comboMultiplier);
-            //console.log("comboTimer ==", player.comboTimer);
-            comboMult++;
-            comboTim = 60;
-            
+
             enemy.alive = false;
             bullet.active = false;
             enemyContainer.removeChild(enemy);
