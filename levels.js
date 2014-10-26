@@ -85,7 +85,8 @@ function createBoss(bossNumber){
     if (1 == bossNumber){
         //bossHP = 5;
         boss.graphics.beginFill("red").drawCircle(0,0,40);
-        boss.regX = boss.regY = 20;
+        boss.setBounds(0,0,80,80);
+        boss.regX = boss.regY = 10;
         boss.x = 600;
         boss.y = 500;
         boss.hp = 5;
@@ -97,8 +98,8 @@ function createBoss(bossNumber){
     }
     if (2 == bossNumber){
         //bossHP = 15;
-        boss.graphics.beginFill("red").drawRect(0,0,40, 40);
-        boss.regX = boss.regY = 20;
+        boss.graphics.beginFill("red").drawRect(0,0,80, 80);
+        boss.regX = boss.regY = 40;
         boss.x = 600;
         boss.y = 500;
         boss.hp = 15;

@@ -7,14 +7,10 @@ function initGame() {
     var background = new createjs.Bitmap("tausta.png");
     stage.addChild(background);
 
-    crosshair = new createjs.Bitmap("crosshair.png");
-    crosshair.regX = 16;
-    crosshair.regY = 16;
 
     player.hp = 99;
 
     stage.addChild(player);
-    stage.addChild(crosshair);
 
     player.shadow = new createjs.Shadow("#555555", 4, 4, 10);
     
@@ -45,6 +41,11 @@ function initGame() {
     stage.addChild(UIContainer);
 
     initGameUI();
+
+    crosshair = new createjs.Bitmap("crosshair.png");
+    crosshair.regX = 16;
+    crosshair.regY = 16;
+    stage.addChild(crosshair);
 }
 function handleTick(event) {
     
