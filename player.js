@@ -4,6 +4,8 @@ player.speed = [0,0];
 player.dir = [0,0];
 player.x = stage.canvas.width/2;
 player.y = stage.canvas.height/2;
+player.comboTimer = 0;
+player.comboMultiplier = 1;
 player.regX = 60;
 player.regY = 60;
 player.hp = 5;
@@ -25,13 +27,31 @@ function handlePlayerTick(event) {
     // move player
     player.x += dt/1000*player.speed[0]*500;
     player.y += dt/1000*player.speed[1]*500;
+    
+    //count combo
+    if (player.comboTimer > 0){
+        //console.log("in comboTimer if");
+        player.comboTimer = player.comboTimer - 1;
+        if (0 == player.comboTimer){
+            player.comboMultiplier = 1;
+        }
+    }
+    /*
+    if (comboTim > 0){
+        comboTim--;
+        if (0 == comboTim){
+            comboMult = 1;
+        }
+    }
+    */
+    
     checkBound(player);
     checkPlayerWallCollision();
 }
 function handlePlayerHit() {
     player.hp -= 1;
     HPtext.text = "HP: " + player.hp;
-
+    
     if (player.hp < 1) {
         initGameOver();
     }

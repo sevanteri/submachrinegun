@@ -127,13 +127,26 @@ function handleBulletTick(event) {
     }
 }
 function checkEnemyCollision(bullet) {
+    var multiplier = player.comboMultiplier;
     for (e in enemies) {
         var enemy = enemies[e];
         if (!enemy.alive) continue;
 
         var pt = bullet.localToLocal(0,0, enemy);
         if (enemy.hitTest(pt.x, pt.y)) {
-            score++;
+            //score++;
+            score = score + (1 * multiplier);
+            //console.log("score ==", score, "multiplier was", multiplier);
+            player.comboTimer = 60;
+            player.comboMultiplier++;
+            //console.log("score ==", score, " comboMult ==", comboMult);
+            //console.log("comboTim ==", comboTim);
+            
+            //console.log("score ==", score, " comboMultiplier ==", player.comboMultiplier);
+            //console.log("comboTimer ==", player.comboTimer);
+            comboMult++;
+            comboTim = 60;
+            
             enemy.alive = false;
             bullet.active = false;
             enemyContainer.removeChild(enemy);

@@ -15,9 +15,9 @@ function initGame() {
     player.shadow = new createjs.Shadow("#555555", 4, 4, 10);
     
     
-    console.log("before nextLevel");
+    //console.log("before nextLevel");
     nextLevel();
-    console.log("after nextLevel");
+    //console.log("after nextLevel");
     //wallsInit();
     //makeBoundswSize(10);
     //makeBounds();
@@ -49,19 +49,21 @@ function initGame() {
 }
 function handleTick(event) {
     
-    if ((score > 1 && score < 6) && changingLevel == false){
+    if (1 == nextBoss && score > 90 && changingLevel == false){
         //createBoss();
         //bossBattle();
+        levelChangeScore = score;
         changingLevel = true;
         //despawn all enemies
         nextLevel();
         //changingLevel = false;
     }
-    if ((score > 14 && score < 18) && changingLevel == false){
+    if (2 == nextBoss && score > (levelChangeScore + 750) && changingLevel == false){
+        //levelChangeScore = score;
         changingLevel = true;
         nextLevel();
     }
-    if ((score > 31 && score < 36) && changingLevel == false){
+    if (3 == nextBoss && score > (levelChangeScore + 2000) && changingLevel == false){
         changingLevel = true;
         nextLevel();
     }

@@ -3,10 +3,13 @@ var stage, player, crosshair;
 var bullets = [], Bullet, bulletGraph;
 var walls;
 var level = 0;
+var nextBoss = 1;
 var Enemy, enemies = [];
 var enemyBullets = [], EnemyBullet, enemyBulletGraph;
 var changingLevel = false;
 
+//var comboTim = 0;
+//var comboMult = 1;
 var curStage = 0;
 var score = 0;
 

@@ -38,8 +38,9 @@ function nextLevel(){
 }
 
 function makeLevel1(){
-    horizontalObstacle(100, 100, 150);
-    verticalObstacle(450, 100, 300);
+    horizontalObstacle(150, 150, 400);
+    horizontalObstacle(150, 400, 400);
+    verticalObstacle(550, 150, 260);
 }
 
 function makeLevel2(){
@@ -48,8 +49,8 @@ function makeLevel2(){
 }
 
 function makeLevel3(){
-    horizontalObstacle(100, 300, 250);
-    verticalObstacle(250, 100, 350);
+    horizontalObstacle(150, 300, 500);
+    verticalObstacle(300, 125, 325);
 }
 
 function bossBattle(bossNum){
@@ -160,6 +161,7 @@ function handleBossHit(){
     boss.hp -= 1;
     
     if (boss.hp < 1){
+        nextBoss++;
         for (b in enemyBullets){
             var bullet = enemyBullets[b]
             
@@ -167,15 +169,25 @@ function handleBossHit(){
             bulletContainer.removeChild(bullet);
         }
         if (1 == boss.num){
-            score += 10;
+            score += 30 * player.comboMultiplier;
+            player.comboTimer = 50;
+            //console.log("score == ", score, " multiplier was:", player.comboMultiplier);
+            //score += (10 * comboMult);
+            levelChangeScore = score;
             makeLevel2();
         }
         else if (2 == boss.num){
-            score += 15;
+            score += 80 * player.comboMultiplier;
+            player.comboTimer = 50;
+            //console.log("score == ", score, " multiplier was:", player.comboMultiplier);
+            //score += (15 * comboMult);
+            levelChangeScore = score;
             makeLevel3();
         }
         else if (3 == boss.num){
-            score += 200;
+            score += 200 * player.comboMultiplier;
+            //console.log("score == ", score, " multiplier was:", player.comboMultiplier);
+            //score += (200 * comboMult);
             enemyContainer.removeChild(boss);
             initWinScreen();
         }
