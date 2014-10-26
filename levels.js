@@ -4,10 +4,7 @@ var bossHP;
 //var boss1_chkRad = 30;
  
 function nextLevel(){
-    console.log("in nextLevel");
-    console.log("before level++");
     level++;
-    console.log("after level++");
     /*
     for (w in walls){
         //delete wall;
@@ -24,8 +21,6 @@ function nextLevel(){
     //makeBounds();
     makeBoundswSize(10);
     
-    console.log("level ==", level);
-    
     switch (level){
         case 1:
             makeLevel1();
@@ -37,6 +32,8 @@ function nextLevel(){
         case 3:
             bossBattle(2);
             makeLevel3();
+        case 4:
+            bossBattle(3);
     }
     //bossBattle();
 }
@@ -77,12 +74,10 @@ function bossBattle(bossNum){
     */
     
     createBoss(bossNum);
-    console.log("boss Created. bossHP:", boss.hp);
     //while (bossAlive){
         //handleBossTick(event);
         //handlePlayerTick(event);
     //}
-    console.log("after bossBattle");
 }
 
 function createBoss(bossNumber){
