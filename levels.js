@@ -161,6 +161,7 @@ function handleBossHit(){
     boss.hp -= 1;
     
     if (boss.hp < 1){
+        createjs.Sound.play("boss_death");
         nextBoss++;
         for (b in enemyBullets){
             var bullet = enemyBullets[b]

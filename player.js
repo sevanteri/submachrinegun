@@ -49,6 +49,7 @@ function handlePlayerTick(event) {
     checkPlayerWallCollision();
 }
 function handlePlayerHit() {
+    createjs.Sound.play("player_hit");
     player.hp -= 1;
     HPtext.text = "HP: " + player.hp;
     

@@ -139,6 +139,7 @@ function checkEnemyCollision(bullet) {
             player.comboTimer = 4000;
             player.comboMultiplier++;
 
+            createjs.Sound.play("enemy_hit");
             enemy.alive = false;
             bullet.active = false;
             enemyContainer.removeChild(enemy);

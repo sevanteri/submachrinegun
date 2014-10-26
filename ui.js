@@ -45,6 +45,7 @@ function initMainMenu() {
 }
 
 function initGameOver() {
+    createjs.Sound.play('death');
     createjs.Ticker.removeEventListener("tick", handleTick);
     stage.canvas.style.cursor = "inherit";
     stage.removeChild(player, UIContainer, bulletContainer, enemyContainer);

@@ -1,3 +1,13 @@
+var stuff = [
+{id: 'shoot', src:'shoot.ogg'},
+{id: 'death', src:'death.ogg'},
+{id: 'player_hit', src:'player_hit.ogg'},
+{id: 'enemy_hit', src:'enemy_hit.ogg'},
+{id: 'boss_death', src:'boss_death.ogg'},
+];
+var preload = new createjs.LoadQueue();
+preload.installPlugin(createjs.Sound);
+preload.loadManifest(stuff);
 
 function initGame() {
     //level = 0;
@@ -100,7 +110,7 @@ function handleMouseUp(event) {
 function handleMouseDown(event) {
     // start shooting
     if (event.nativeEvent.button != 0) return;
-
+    createjs.Sound.play("shoot");
     // send player to the opposite direction
     player.speed[0] += -player.dir[0];
     player.speed[1] += -player.dir[1];
