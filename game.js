@@ -57,11 +57,14 @@ function handleTick(event) {
         //changingLevel = false;
     }
     if ((score > 14 && score < 18) && changingLevel == false){
-        console.log("before second nextLevel");
         changingLevel = true;
         nextLevel();
-        console.log("after second nextLevel");
     }
+    if ((score > 31 && score < 36) && changingLevel == false){
+        changingLevel = true;
+        nextLevel();
+    }
+    
     
     if (changingLevel == true){
         handleBossTick(event);

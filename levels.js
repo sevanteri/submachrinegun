@@ -27,11 +27,10 @@ function nextLevel(){
             break;
         case 2:
             bossBattle(1);
-            makeLevel2();
             break;
         case 3:
             bossBattle(2);
-            makeLevel3();
+            break;
         case 4:
             bossBattle(3);
     }
@@ -44,11 +43,13 @@ function makeLevel1(){
 }
 
 function makeLevel2(){
-    
+    horizontalObstacle(250, 300, 450);
+    verticalObstacle(450, 100, 300);
 }
 
 function makeLevel3(){
-    
+    horizontalObstacle(100, 300, 250);
+    verticalObstacle(250, 100, 350);
 }
 
 function bossBattle(bossNum){
@@ -87,19 +88,33 @@ function createBoss(bossNumber){
         boss.x = 600;
         boss.y = 500;
         boss.hp = 5;
+        boss.num = 1;
         boss.speed = [0,-3];
         boss.chkRad = 30;
         boss.shootTimer = 0;
         stage.addChild(boss);
     }
     if (2 == bossNumber){
-        bossHP = 15;
+        //bossHP = 15;
         boss.graphics.beginFill("red").drawRect(0,0,40, 40);
         boss.x = 600;
         boss.y = 500;
-        boss.hp = 5;
+        boss.hp = 15;
+        boss.num = 2;
         boss.speed = [3,-3];
-        boss.chkRad = 30;
+        boss.chkRad = 20;
+        boss.shootTimer = 0;
+        stage.addChild(boss);
+    }
+    if (3 == bossNumber){
+        //boss HP = 35;
+        boss.graphics.beginFill("red").drawRoundRect(0,0,80,40,20);
+        boss.x = 600;
+        boss.y = 500;
+        boss.hp = 35;
+        boss.num = 3;
+        boss.speed = [0,0];
+        boss.chkRad = 50;
         boss.shootTimer = 0;
         stage.addChild(boss);
     }
@@ -128,9 +143,22 @@ function handleBossHit(){
     boss.hp -= 1;
     
     if (boss.hp < 1){
-        score += 10;
+        if (1 == boss.num){
+            score += 10;
+            makeLevel2();
+        }
+        else if (2 == boss.num){
+            score += 15;
+            makeLevel3();
+        }
+        else if (3 == boss.num){
+            score += 200;
+            // winScreen()
+        }
         changingLevel = false;
         stage.removeChild(boss);
+        
+        
     }
 }
 
