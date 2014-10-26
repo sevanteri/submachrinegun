@@ -93,7 +93,8 @@ function createBoss(bossNumber){
         boss.num = 1;
         boss.speed = [0,-3];
         boss.chkRad = 30;
-        boss.shootTimer = 0;
+        boss.shootInterval = 500;
+        boss.shootAngle = 100;
         enemyContainer.addChild(boss);
     }
     if (2 == bossNumber){
@@ -106,12 +107,14 @@ function createBoss(bossNumber){
         boss.num = 2;
         boss.speed = [3,-3];
         boss.chkRad = 20;
-        boss.shootTimer = 0;
+        boss.shootInterval = 250;
+        boss.shootAngle = 150;
         enemyContainer.addChild(boss);
     }
     if (3 == bossNumber){
         //boss HP = 35;
         boss.graphics.beginFill("red").drawRoundRect(0,0,80,40,20);
+        boss.setBounds(0,0,80,40);
         boss.regX = 40;
         boss.regY = 20;
         boss.x = 600;
@@ -120,7 +123,8 @@ function createBoss(bossNumber){
         boss.num = 3;
         boss.speed = [0,0];
         boss.chkRad = 50;
-        boss.shootTimer = 0;
+        boss.shootInterval = 50;
+        boss.shootAngle = 200;
         enemyContainer.addChild(boss);
     }
 }
@@ -137,11 +141,20 @@ function handleBossTick(event){
     //bossCollisionCheck(boss, boss.chkRad);
     boss.x += event.delta/1000 * boss.speed[0]*100;
     boss.y += event.delta/1000 * boss.speed[1]*100;
-    
-    boss.shootTimer += event.delta;
-    if (boss.shootTimer > 1000 - boss.hp*50){
+    boss.rotation += event.delta/1000 * boss.shootAngle;
+    shootTimer += event.delta;
+    if (shootTimer > boss.shootInterval + boss.hp*10){
         //shoot
-        boss.shootTimer = 0;
+        shootTimer = 0;
+
+        var b = getEnemyBullet();
+
+        b.rotation = boss.rotation + 90;
+        b.speed = angleToDir(boss.rotation);
+        b.x = boss.x;
+        b.y = boss.y;
+        bulletContainer.addChild(b);
+        shootTimer = 0;
     }
 }
 
