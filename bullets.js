@@ -74,6 +74,41 @@ function handleBulletTick(event) {
         var bullet = enemyBullets[b];
         if (!bullet.active) continue;
         
+        if (changingLevel == true && 3 == boss.num){
+            
+            if (bullet.x + dt/1000*bullet.speed[0]*500 < 0){
+                bullet.speed[0] = bullet.speed[0] * -1;
+            }
+            else if (bullet.x + dt/1000*bullet.speed[0]*500 > stage.canvas.width){
+                bullet.speed[0] = bullet.speed[0] * -1;
+            }
+            if (bullet.y + dt/1000*bullet.speed[1]*500 < 0){
+                bullet.speed[1] = bullet.speed[1] * -1;
+            }
+            else if (bullet.y + dt/1000*bullet.speed[1]*500 > stage.canvas.height){
+                bullet.speed[1] = bullet.speed[1] * -1;
+            }
+            
+            /*
+            if (bullet.x - 10 < 0){
+                bullet.speed[0] = bullet.speed[0] * -1;
+            }
+            else if (bullet.x + 10 > stage.canvas.width){
+                bullet.speed[0] = bullet.speed[0] * -1;
+            }
+            if (bullet.y - 10 < 0){
+                bullet.speed[1] = bullet.speed[1] * -1;
+            }
+            else if (bullet.y + 10 > stage.canvas.height){
+                bullet.speed[1] = bullet.speed[1] * -1;
+            }
+            */
+            
+            bullet.x += dt/1000*bullet.speed[0]*500;
+            bullet.y += dt/1000*bullet.speed[1]*500;
+            checkPlayerCollision(bullet);
+        }
+        else{
         if (bullet.x > stage.canvas.width ||
             bullet.y > stage.canvas.height ||
             bullet.x < 0 ||
@@ -86,6 +121,7 @@ function handleBulletTick(event) {
             bullet.x += dt/1000*bullet.speed[0]*500;
             bullet.y += dt/1000*bullet.speed[1]*500;
             checkPlayerCollision(bullet);
+        }
         }
 
     }
@@ -132,5 +168,6 @@ function checkWallCollision(bullet){
             return 1;
         }
     }
+    
     return 0;
 }

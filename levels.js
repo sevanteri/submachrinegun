@@ -65,14 +65,12 @@ function bossBattle(bossNum){
         enemy.alive = false;
         enemyContainer.removeChild(enemy);
     }
-    /*
     for (b in enemyBullets){
         var bullet = enemyBullets[b]
         
         bullet.active = false;
         bulletContainer.removeChild(bullet);
     }
-    */
     
     createBoss(bossNum);
     //while (bossAlive){
@@ -103,7 +101,7 @@ function createBoss(bossNumber){
         boss.regX = boss.regY = 40;
         boss.x = 600;
         boss.y = 500;
-        boss.hp = 15;
+        boss.hp = 2;
         boss.num = 2;
         boss.speed = [3,-3];
         boss.chkRad = 20;
@@ -119,7 +117,7 @@ function createBoss(bossNumber){
         boss.regY = 20;
         boss.x = 600;
         boss.y = 500;
-        boss.hp = 35;
+        boss.hp = 5;
         boss.num = 3;
         boss.speed = [0,0];
         boss.chkRad = 50;
@@ -162,6 +160,12 @@ function handleBossHit(){
     boss.hp -= 1;
     
     if (boss.hp < 1){
+        for (b in enemyBullets){
+            var bullet = enemyBullets[b]
+            
+            bullet.active = false;
+            bulletContainer.removeChild(bullet);
+        }
         if (1 == boss.num){
             score += 10;
             makeLevel2();
@@ -172,7 +176,8 @@ function handleBossHit(){
         }
         else if (3 == boss.num){
             score += 200;
-            // winScreen()
+            enemyContainer.removeChild(boss);
+            initWinScreen();
         }
         changingLevel = false;
         enemyContainer.removeChild(boss);
